@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Kunde from './Kunde';
-
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
 const Kunden = () => {
     const [showOnlyWithBemerkung, setShowOnlyWithBemerkung] = useState(false);
@@ -71,12 +72,13 @@ const Kunden = () => {
                 Suche: <input type="text" value={mySearch} onChange={(e) => setMySearch(e.target.value)} />
             </p>
             <p>
-                <button onClick={() => setShowOnlyWithBemerkung(!showOnlyWithBemerkung)}>
-                    {showOnlyWithBemerkung ? 'Alle Kunden anzeigen' : 'Nur Kunden mit Bemerkung anzeigen'}
-                </button>
+                <ToggleButtonGroup value={showOnlyWithBemerkung} exclusive onChange={() => setShowOnlyWithBemerkung(!showOnlyWithBemerkung)} aria-label="text alignment">
+                    <ToggleButton value={true}>Nur Kunden mit Bemerkung anzeigen</ToggleButton>
+                    <ToggleButton value={false}>Alle Kunden anzeigen</ToggleButton>
+                </ToggleButtonGroup>
             </p>
             {filteredKunden.map((kunde) => (
-                < Kunde
+                <Kunde
                     key={kunde.id}
                     id={kunde.id}
                     vorname={kunde.vorname}
